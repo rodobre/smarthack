@@ -1,6 +1,7 @@
 from . import Base, engine
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
+import json
 
 class Caretaker(Base):
     __tablename__ = "caretaker"
@@ -15,6 +16,9 @@ class Caretaker(Base):
 
     family_id = Column(Integer, ForeignKey('family.id'))
 
+    def __repr__(self):
+        return json.dumps({'id':self.id,'name':self.name,'desc':self.desc,'img':self.img})
+
 class Patient(Base):
     __tablename__ = "patient"
 
@@ -24,6 +28,9 @@ class Patient(Base):
 
     family_id = Column(Integer, ForeignKey('family.id'))
 
+    def __repr__(self):
+        return json.dumps({'id':self.id,'name':self.name,'img':self.img})
+
 class Family(Base):
     __tablename__ = "family"
 
@@ -31,6 +38,5 @@ class Family(Base):
 
     caretakers = relationship("Caretaker", backref="family")
     patients = relationship("Patient", backref="family")
-
 
 Base.metadata.create_all(engine)

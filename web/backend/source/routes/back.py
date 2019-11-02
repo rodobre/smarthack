@@ -3,7 +3,7 @@ from db import Session, Cache
 from db.family import Family, Caretaker, Patient
 from db.todo import Todo
 from base64 import b64encode, b64decode
-
+import json
 backend = Blueprint('back', __name__)
 api_path = '/api/'
 
@@ -117,6 +117,29 @@ def add_todo():
     s.commit()
     return 'A'
 
+# VIEW_MEMBERS - GET
+# SEND: family_id
+# RECV: names, images
+@backend.route(api_path + 'view_members', methods=['GET'])
+def view_members():
+    data = request.json
+    if not is_auth(request.headers):
+       return 'not authenticated', 401
+
+    family_id = None
+
+    try:
+        family_id = data['family_id']
+    except:
+        return 'invalid parameters', 400
+
+    s = Session()
+    r = s.query(Caretaker).filter_by(family_id=family_id).all()
+    print(repr(r))
+    persons = []
+    for p in r:
+        persons += [{'name':p.name,'img':p.img}]
+    return str(json.dumps(persons))
 
 # VIEW_PATIENTS - GET
 # SEND: family_id

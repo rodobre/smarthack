@@ -12,8 +12,21 @@ def create_db():
 
     f = Family()
     s.add(f)
+    s.commit()
 
-    c = Caretaker(name = "Ioan", password = "1234", img = "none", family_id = f.id)
+    c = Caretaker(name = "Maria Jones", password = "1234", img = "https://cdn.discordapp.com/attachments/633037289743712286/640246227778273344/woman1.jpg", family_id = f.id)
+    s.add(c)
+
+    c = Caretaker(name = "James Morgan", password = "1234", img = "https://cdn.discordapp.com/attachments/633037289743712286/640246255288844341/man1.jpg", family_id=f.id)
+    s.add(c)
+
+    c = Caretaker(name = "Piers Johnson", password = "1234", img = "https://cdn.discordapp.com/attachments/633037289743712286/640246279112359986/man2.jpg", family_id=f.id)
+    s.add(c)
+
+    c = Caretaker(name = "Michael Morrison", password = "1234", img = "https://cdn.discordapp.com/attachments/633037289743712286/640245068313395201/testimonial-4.jpg", family_id=f.id)
+    s.add(c)
+
+    c = Caretaker(name = "Luigi Martinelli", password = "1234", img = "https://cdn.discordapp.com/attachments/633037289743712286/640245081051234325/testimonial-5.jpg", family_id=f.id)
     s.add(c)
 
     p = Patient(name = "Bunica lu' trupples", img = "none")
