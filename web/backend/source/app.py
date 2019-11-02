@@ -1,5 +1,33 @@
 #!/usr/bin/python3
 
+# ----
+from os import system
+system("rm database.sql")
+
+from db import Session, Cache
+from db.family import Caretaker, Patient, Family
+
+def create_db():
+    s = Session()
+
+    f = Family()
+    s.add(f)
+
+    c = Caretaker(name = "Ioan", password = "1234", img = "none", family_id = f.id)
+    s.add(c)
+
+    p = Patient(name = "Bunica lu' trupples", img = "none")
+    s.add(p)
+
+    s.commit()
+
+    print (f, c, p)
+    print (f.id, c.id, p.id)
+
+create_db()
+
+# ----
+
 # -----------------------------------
 # ----------- Import list -----------
 # -----------------------------------
