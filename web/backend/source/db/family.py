@@ -26,7 +26,6 @@ class Patient(Base):
     id = Column(Integer, primary_key = True)
     name = Column(String)
     img = Column(String)
-    # add todo TODO
 
     family_id = Column(Integer, ForeignKey('family.id'))
 
