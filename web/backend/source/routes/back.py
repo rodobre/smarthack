@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from db import Session, Cache
 from db.family import Family, Caretaker, Patient
+from db.todo import Todo
 from base64 import b64encode, b64decode
 
 backend = Blueprint('back', __name__)
@@ -181,7 +182,7 @@ def view_todo():
         return 'invalid parameters', 400
 
     s = Session()
-    r = s.query(Todo).filter_by(family_id=family_id, patient_id=patient_id).all()
+    r = s.query(Todo).filter_by(patient_id=patient_id).all()
     return repr(r)
 
 def is_auth(header):
