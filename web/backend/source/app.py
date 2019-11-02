@@ -10,8 +10,7 @@ import consts
 
 from flask import Flask, request, render_template, jsonify, session, redirect
 
-from routes import test
-from routes import login
+from routes import test, login, back
 # -----------------------------------
 
 # -----------------------------------
@@ -29,6 +28,7 @@ app = Flask(__name__,
 # -----------------------------------
 app.register_blueprint(test.test_blueprint, url_prefix = '/test')
 app.register_blueprint(login.login_blueprint, url_prefix = '/api')
+app.register_blueprint(back.backend)
 # -----------------------------------
 
 # -----------------------------------
