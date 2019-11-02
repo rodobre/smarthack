@@ -1,7 +1,7 @@
 from . import Base, engine
 from sqlalchemy import Column, Integer, String
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import UserMixin
+#from flask_login import UserMixin
 
 class User(Base, UserMixin):
     __tablename__ = 'user'
