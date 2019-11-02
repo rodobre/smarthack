@@ -6,6 +6,7 @@ system("rm database.sql")
 
 from db import Session, Cache
 from db.family import Caretaker, Patient, Family
+from db.todo import Todo
 
 def create_db():
     s = Session()
@@ -31,6 +32,12 @@ def create_db():
 
     p = Patient(name = "Bunica lu' trupples", img = "https://cdn.discordapp.com/attachments/633037289743712286/640246191791144980/unknown.png")
     s.add(p)
+
+    t = Todo(desc = "Water my pussy at 6", done = False, patient_id = 1, caretaker_id = 1)
+    s.add(t)
+
+    t = Todo(desc = "Water my pussy at 6, but again", done = False, patient_id = 1, caretaker_id = 2)
+    s.add(t)
 
     s.commit()
 

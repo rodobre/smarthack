@@ -48,6 +48,7 @@ def get_qr():
 # ADD_FAMILY_MEMBER - POST
 # SEND: family_id, name, description, image (B64)
 # RECV: NOTHING
+# USELESS
 @backend.route(api_path + 'add_family_member', methods=['POST'])
 def add_family_member():
     data = request.json
@@ -91,7 +92,7 @@ def add_patient():
     image = None
 
     try:
-        family_id = data['family_id']
+        family_id = Cache[request.headers['Token']]['family_id']
         name = data['name']
         description = data['description']
         image = data['image']
@@ -119,7 +120,7 @@ def add_todo():
     todo = None
 
     try:
-        family_id = data['family_id']
+        family_id = Cache[request.headers['Token']]['family_id']
         patient_id = data['patient_id']
         todo = data['todo']
     except:
@@ -152,7 +153,7 @@ def send_stats():
         moves = data['moves']
         answers_right = data['answers_right']
         answers_wrong = data['answers_wrong']
-        patient_id = data['patient_id']
+        patient_id = Cache[request.headers['Token']]['id']
     except:
         return 'invalid parameters', 400
 
@@ -174,7 +175,7 @@ def get_stats():
     try:
         patient_id = data['patient_id']
     except:
-        return 'invalid parameters', 4000
+        return 'invalid parameters', 400
 
     s = Session()
     r = s.query(Stats).filter_by(patient_id=patient_id).first()
@@ -211,7 +212,7 @@ def view_patients():
     family_id = None
 
     try:
-        family_id = data['family_id']
+        family_id = Cache[request.headers['Token']]['family_id']
     except:
         return 'invalid parameters', 400
 
@@ -233,7 +234,7 @@ def view_patient():
     patient_id = None
 
     try:
-        family_id = data['family_id']
+        family_id = Cache[request.headers['Token']]['family_id']
         patient_id = data['patient_id']
     except:
         return 'invalid parameters', 400
@@ -249,21 +250,37 @@ def view_patient():
 def view_todo():
     data = request.json
 
+    print ( Cache[request.headers['Token']])
     if not is_auth(request.headers):
         return 'not authenticated', 401
 
     family_id = None
     patient_id = None
 
-    try:
-        family_id = data['family_id']
+    #try:
+    family_id = Cache[request.headers['Token']]['family_id']
+
+    if Cache[request.headers['Token']]['type'] == 0:
+        patient_id = Cache[request.headers['Token']]['id']
+    else:
         patient_id = data['patient_id']
-    except:
-        return 'invalid parameters', 400
+    #except Exception as e:
+    #    print (e)
+    #    return 'invalid parameters', 400
 
     s = Session()
-    r = s.query(Todo).filter_by(patient_id=patient_id).all()
-    return repr(r)
+    r = s.query(Todo).filter_by(patient_id=patient_id, done=False).all()
+    data = []
+    for e in r:
+        data.append(
+                {
+                    "desc":e.desc,
+                    "name":e.caretaker.name,
+                    "img":e.caretaker.img,
+                    }
+                )
+
+    return jsonify(data)
 
 def is_auth(header):
     if header['Token'] in Cache:

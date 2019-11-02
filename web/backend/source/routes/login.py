@@ -28,7 +28,7 @@ def login():
             "type": 1,
             "id": u.id
         }
-
+        print ("c:",  key)
         return jsonify({"token":key}), 200
     else:
         f = session.query(Family).filter_by(id = data["family_id"]).first()
@@ -45,7 +45,7 @@ def login():
             "type": 0,
             "id": u.id
         }
-
+        print ("p:",  key)
         return jsonify({"token":key}), 200
 
 
