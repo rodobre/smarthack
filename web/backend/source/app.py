@@ -9,6 +9,9 @@ import redislite
 import consts
 
 from flask import Flask, request, render_template, jsonify, session, redirect
+
+from routes import test
+from routes import login
 # -----------------------------------
 
 # -----------------------------------
@@ -18,13 +21,15 @@ app = Flask(__name__,
         template_folder= consts.proj_path + '/../../frontend/templates',
         static_folder= consts.proj_path + '/../../frontend/static',
         static_url_path= '/static')
+login.login_manager.init_app(app)
+
 # -----------------------------------
 
 # -----------------------------------
 # ---------   Blueprints   ----------
 # -----------------------------------
-from routes import test
 app.register_blueprint(test.test_blueprint, url_prefix = '/test')
+app.register_blueprint(login.login_blueprint, url_prefix = '/api')
 # -----------------------------------
 
 # -----------------------------------
