@@ -2,3 +2,5 @@ flask
 flask-login
 sqlalchemy
 redislite
+qrcode
+flask_cors

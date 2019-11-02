@@ -11,6 +11,13 @@ api_path = '/api/'
 import qrcode
 import io
 
+import string
+import random
+
+def random_key(N):
+    return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(N))
+
+
 # ############# CARETAKER ROUTES ################## #
 # GET_QR - POST
 # SEND:
@@ -20,13 +27,19 @@ def get_qr():
     if not is_auth(request.headers):
         return 'not authenticated', 401
 
+    data = request.json
+    session = Session()
+    u = Patient(name = data['name'], img = data['img'], family_id = Cache[request.headers["Token"]]["family_id"])
+    session.add(u)
+    session.commit()
+
     family_id = str(Cache[request.headers["Token"]]["family_id"])
-    img = qrcode.make(family_id)
+    img = qrcode.make(family_id + "#" + str(u.id))
     img_bytes = io.BytesIO()
     img.save(img_bytes, format='PNG')
     img_bytes = img_bytes.getvalue()
 
-    fn = family_id + ".png"
+    fn = random_key(64) + ".png"
     with open(fn, 'wb') as f:
         f.write(img_bytes)
 

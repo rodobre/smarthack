@@ -50,6 +50,7 @@ import redislite
 import consts
 
 from flask import Flask, request, render_template, jsonify, session, redirect
+from flask_cors import CORS
 
 from routes import test, login, back
 # -----------------------------------
@@ -61,6 +62,7 @@ app = Flask(__name__,
         template_folder= consts.proj_path + '/../../frontend/templates',
         static_folder= consts.proj_path + '/../../frontend/static',
         static_url_path= '/static')
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 # -----------------------------------
 

@@ -35,9 +35,9 @@ def login():
         if f == None:
             return jsonify({"message":"not found"}), 400
 
-        u = Patient(name = data["name"], img = data["img"], family_id = f.id)
-        session.add(u)
-        session.commit()
+        u = session.query(Patient).filter_by(id = data["patient_id"]).first()
+        if u == None:
+            return jsonify({"message":"not found"}), 400
 
         key = random_key(128)
         Cache[key] = {
