@@ -1,37 +1,72 @@
 from flask import Blueprint, jsonify, request
-from flask_login import LoginManager, current_user, login_user, logout_user
-from db.user import User
+from db import Session, Cache
+from db.family import Caretaker, Family, Patient
+import string
+import random
 
-login_manager = LoginManager()
+def random_key(N):
+    return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(N))
 
-@login_manager.user_loader
-def load_user(id):
-    return User.query.get(int(id))
+login_blueprint = Blueprint("login", __name__)
 
-login_blueprint = Blueprint('login', __name__)
+@login_blueprint.route('/login', methods=['POST'])
+def login():
+    session = Session()
+    data = request.json
 
-@login_blueprint.route('/login', methods = ['POST'])
-def login_route():
-    if current_user.is_authenticated:
-        return jsonify({"message" : "already authenticated"}), 400
+    if data["type"] == "creds":
+        u = session.query(Caretaker).filter_by(name = data["name"]).first()
+        if u == None:
+            return jsonify({"message" : "name not found"}), 400
 
-    username = request.json["username"]
-    password = request.json["password"]
+        if u.password != data["password"]:
+            return jsonify({"message" : "wrong password"}), 400
 
-    user = User.query.filter_by(name = username).first()
-    if user == None:
-        return jsonify({"message" : "user not found"}), 400
+        key = random_key(128)
+        Cache[key] = {
+            "family_id": u.family_id,
+            "type": 1,
+            "id": u.id
+        }
 
-    if user.check_password(password):
-        login_user(user)
-        return jsonify({"message" : "success"}), 200
+        return jsonify({"token":key}), 200
+    else:
+        f = session.query(Family).filter_by(id = data["family_id"]).first()
+        if f == None:
+            return jsonify({"message":"not found"}), 400
 
-    return jsonify({"message" : "wrong password"}), 400
+        u = Patient(name = data["name"], img = data["img"], family_id = f.id)
+        session.add(u)
+        session.commit()
 
-@login_blueprint.route('/logout')
-def logout_route():
-    if not current_user.is_authenticated:
-        return jsonify({"message" : "you must be logged in"}), 400
+        key = random_key(128)
+        Cache[key] = {
+            "family_id": u.family_id,
+            "type": 0,
+            "id": u.id
+        }
 
-    logout_user()
-    return jsonify({"message" : "success"}), 200
+        return jsonify({"token":key}), 200
+
+
+@login_blueprint.route('/dbg_register_ct', methods=['POST'])
+def dbg_register_ct():
+    data = request.json
+    session = Session()
+
+    u = Caretaker(name = data["name"], password = data["password"], family_id = data["family_id"])
+    session.add(u)
+    session.commit()
+    print (u, u.id)
+
+    return "ok"
+
+@login_blueprint.route('/dbg_register_fm', methods=['POST'])
+def dbg_register_fm():
+    session = Session()
+
+    u = Family()
+    session.add(u)
+    session.commit()
+    print (u, u.id)
+    return "ok"

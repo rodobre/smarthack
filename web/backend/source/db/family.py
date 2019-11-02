@@ -1,13 +1,6 @@
 from . import Base, engine
-from sqlalchemy import Column, Integer, String
-
-class Family(Base):
-    __tablename__ = "family"
-
-    id = Column(Integer, primary_key = True)
-
-    caretakers = relationship("Caretaker", backref="family")
-    patients = relationship("Patients", backref="family")
+from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy.orm import relationship
 
 class Caretaker(Base):
     __tablename__ = "caretaker"
@@ -17,6 +10,8 @@ class Caretaker(Base):
     desc = Column(String)
     img  = Column(String)
     phone = Column(String)
+
+    password = Column(String)
 
     family_id = Column(Integer, ForeignKey('family.id'))
 
@@ -28,5 +23,14 @@ class Patient(Base):
     img = Column(String)
 
     family_id = Column(Integer, ForeignKey('family.id'))
+
+class Family(Base):
+    __tablename__ = "family"
+
+    id = Column(Integer, primary_key = True)
+
+    caretakers = relationship("Caretaker", backref="family")
+    patients = relationship("Patient", backref="family")
+
 
 Base.metadata.create_all(engine)

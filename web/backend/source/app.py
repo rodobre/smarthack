@@ -21,7 +21,6 @@ app = Flask(__name__,
         template_folder= consts.proj_path + '/../../frontend/templates',
         static_folder= consts.proj_path + '/../../frontend/static',
         static_url_path= '/static')
-login.login_manager.init_app(app)
 
 # -----------------------------------
 
