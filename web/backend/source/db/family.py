@@ -2,7 +2,7 @@ from . import Base, engine
 from sqlalchemy import Column, Integer, String
 
 class Family(Base):
-    __table__ = "family"
+    __tablename__ = "family"
 
     id = Column(Integer, primary_key = True)
 
@@ -10,7 +10,7 @@ class Family(Base):
     patients = relationship("Patients", backref="family")
 
 class Caretaker(Base):
-    __table__ = "caretaker"
+    __tablename__ = "caretaker"
 
     id = Column(Integer, primary_key = True)
     name = Column(String)
@@ -21,7 +21,7 @@ class Caretaker(Base):
     family_id = Column(Integer, ForeignKey('family.id'))
 
 class Patient(Base):
-    __table__ = "patient"
+    __tablename__ = "patient"
 
     id = Column(Integer, primary_key = True)
     name = Column(String)
