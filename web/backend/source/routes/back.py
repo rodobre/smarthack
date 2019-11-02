@@ -6,23 +6,29 @@ from base64 import b64encode, b64decode
 backend = Blueprint('back', __name__)
 api_path = '/api/'
 
+import qrcode
+import io
+
 # ############# CARETAKER ROUTES ################## #
 # GET_QR - POST
 # SEND:
 # RECV: caretaker_qr
 @backend.route(api_path + 'get_qr', methods=['POST'])
 def get_qr():
-    data = request.json
-
     if not is_auth(request.headers):
         return 'not authenticated', 401
 
-    s = Session()
-    f = s.query(Caretaker).filter_by(id = Cache[request.headers["Token"]]["id"]).first()
-    if f == None:
-        return 'invalid parameters', 400
+    family_id = str(Cache[request.headers["Token"]]["family_id"])
+    img = qrcode.make(family_id)
+    img_bytes = io.BytesIO()
+    img.save(img_bytes, format='PNG')
+    img_bytes = img_bytes.getvalue()
 
-    return jsonify({"qr":str(f.family_id)})
+    fn = family_id + ".png"
+    with open(fn, 'wb') as f:
+        f.write(img_bytes)
+
+    return jsonify({"qr":fn})
 
 # ADD_FAMILY_MEMBER - POST
 # SEND: family_id, name, description, image (B64)
