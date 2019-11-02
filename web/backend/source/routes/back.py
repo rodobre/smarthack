@@ -20,7 +20,7 @@ def get_qr():
     s = Session()
     f = s.query(Caretaker).filter_by(id = Cache[request.headers["Token"]]["id"]).first()
     if f == None:
-        return 'nu i bine', 400
+        return 'invalid parameters', 400
 
     return jsonify({"qr":str(f.family_id)})
 
@@ -48,7 +48,11 @@ def add_family_member():
         return 'invalid parameters', 400
 
 
-    return 'A'
+    c = Caretaker(name = name,desc=description,img=image)
+    s = Session()
+    s.add(c)
+    s.commit()
+    return 'OK'
 
 # ADD_PATIENT - POST
 # SEND: family_id, name, description, image (B64)
@@ -73,7 +77,11 @@ def add_patient():
     except:
         return 'invalid parameters', 400
 
-    return 'A'
+    p = Patient(name=name,desc=description,img=image,family_id=family_id)
+    s = Session()
+    s.add(p)
+    s.commit()
+    return 'OK'
 
 # ADD_TODO - POST
 # SEND: family_id, patient_id, todo
@@ -96,6 +104,10 @@ def add_todo():
     except:
         return 'invalid parameters', 400
 
+    t = Todo(desc=todo,done=False,patient_id=patient_id,caretaker_id=Cache[request.headers['Token']]['id'])
+    s = Session()
+    s.add(t)
+    s.commit()
     return 'A'
 
 
@@ -116,7 +128,9 @@ def view_patients():
     except:
         return 'invalid parameters', 400
 
-    return 'A'
+    s = Session()
+    r = s.query(Patient).filter_by(family_id=family_id).all()
+    return repr(r)
 
 # VIEW_PATIENT - GET
 # SEND: family_id, patient_id
@@ -137,7 +151,9 @@ def view_patient():
     except:
         return 'invalid parameters', 400
 
-    return 'A'
+    s = Session()
+    r = s.query(Patient).filter_by(family_id=family_id, id=patient_id).first()
+    return str(r)
 
 # VIEW_TODO - GET
 # SEND: family_id, patient_id
@@ -158,7 +174,9 @@ def view_todo():
     except:
         return 'invalid parameters', 400
 
-    return 'A'
+    s = Session()
+    r = s.query(Todo).filter_by(family_id=family_id, patient_id=patient_id).all()
+    return repr(r)
 
 def is_auth(header):
     if header['Token'] in Cache:
