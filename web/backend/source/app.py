@@ -29,7 +29,7 @@ def create_db():
     c = Caretaker(name = "Luigi Martinelli", password = "1234", img = "https://cdn.discordapp.com/attachments/633037289743712286/640245081051234325/testimonial-5.jpg", family_id=f.id)
     s.add(c)
 
-    p = Patient(name = "Bunica lu' trupples", img = "none")
+    p = Patient(name = "Bunica lu' trupples", img = "https://cdn.discordapp.com/attachments/633037289743712286/640246191791144980/unknown.png")
     s.add(p)
 
     s.commit()
@@ -87,4 +87,3 @@ def index():
 if __name__ == '__main__':
 	app.run(host='0.0.0.0')
 # -----------------------------------
-

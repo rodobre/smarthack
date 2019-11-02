@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 from db import Session, Cache
 from db.family import Family, Caretaker, Patient
 from db.todo import Todo
+from db.stats import Stats
 from base64 import b64encode, b64decode
 import json
 backend = Blueprint('back', __name__)
@@ -115,7 +116,56 @@ def add_todo():
     s = Session()
     s.add(t)
     s.commit()
-    return 'A'
+    return 'OK'
+
+# SEND_STATS - POST
+# SEND: time (INT), moves (INT), answers_right (INT), answers_wrong (INT), patient_id (INT)
+# RECV: NOTHING
+@backend.route(api_path + 'send_stats', methods=['POST'])
+def send_stats():
+    data = request.json
+
+    if not is_auth(request.headers):
+        return 'not authenticated', 401
+
+    patient_id = None
+    time = None
+    moves = None
+    answers_right = None
+    answers_wrong = None
+
+    try:
+        time = data['time']
+        moves = data['moves']
+        answers_right = data['answers_right']
+        answers_wrong = data['answers_wrong']
+        patient_id = data['patient_id']
+    except:
+        return 'invalid parameters', 400
+
+    t = Stats(moves=moves,time=time,answers_wrong=answers_wrong,answers_right=answers_right,patient_id=patient_id)
+    s = Session()
+    s.add(t)
+    s.commit()
+    return 'OK'
+
+@backend.route(api_path + 'get_stats', methods=['GET'])
+def get_stats():
+    data = request.json
+
+    if not is_auth(request.headers):
+        return 'not authenticated', 401
+
+    patient_id = None
+
+    try:
+        patient_id = data['patient_id']
+    except:
+        return 'invalid parameters', 4000
+
+    s = Session()
+    r = s.query(Stats).filter_by(patient_id=patient_id).first()
+    return str(repr(r))
 
 # VIEW_MEMBERS - GET
 # SEND: family_id
