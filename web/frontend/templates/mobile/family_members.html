@@ -62,7 +62,7 @@ var table = document.querySelector("#content");
                 var parinte = clone.querySelector("#parinte");
 
                 img.setAttribute('src', data[i]['img']);
-                txt.innerHTML = data[i]["name"];
+                txt.innerHTML = data[i]["desc"] + ", " + data[i]["name"];
 
                 table.appendChild(clone);
             }

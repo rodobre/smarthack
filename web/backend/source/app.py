@@ -15,28 +15,40 @@ def create_db():
     s.add(f)
     s.commit()
 
-    c = Caretaker(name = "Maria Jones", password = "1234", img = "https://cdn.discordapp.com/attachments/633037289743712286/640246227778273344/woman1.jpg", family_id = f.id)
+    c = Caretaker(name = "Maria Jones", password = "1234", img = "https://cdn.discordapp.com/attachments/633037289743712286/640246227778273344/woman1.jpg", desc = "Your granddaughter", family_id = f.id)
     s.add(c)
 
-    c = Caretaker(name = "James Morgan", password = "1234", img = "https://cdn.discordapp.com/attachments/633037289743712286/640246255288844341/man1.jpg", family_id=f.id)
+    c = Caretaker(name = "James Morgan", password = "1234", img = "https://cdn.discordapp.com/attachments/633037289743712286/640246255288844341/man1.jpg", family_id=f.id, desc="Your husband")
     s.add(c)
 
-    c = Caretaker(name = "Piers Johnson", password = "1234", img = "https://cdn.discordapp.com/attachments/633037289743712286/640246279112359986/man2.jpg", family_id=f.id)
+    c = Caretaker(name = "Piers Johnson", password = "1234", img = "https://cdn.discordapp.com/attachments/633037289743712286/640246279112359986/man2.jpg", family_id=f.id, desc="Your son")
     s.add(c)
 
-    c = Caretaker(name = "Michael Morrison", password = "1234", img = "https://cdn.discordapp.com/attachments/633037289743712286/640245068313395201/testimonial-4.jpg", family_id=f.id)
+    c = Caretaker(name = "Michael Morrison", password = "1234", img = "https://cdn.discordapp.com/attachments/633037289743712286/640245068313395201/testimonial-4.jpg", family_id=f.id, desc="Your friend")
     s.add(c)
 
-    c = Caretaker(name = "Luigi Martinelli", password = "1234", img = "https://cdn.discordapp.com/attachments/633037289743712286/640245081051234325/testimonial-5.jpg", family_id=f.id)
+    c = Caretaker(name = "Luigi Martinelli", password = "1234", img = "https://cdn.discordapp.com/attachments/633037289743712286/640245081051234325/testimonial-5.jpg", family_id=f.id, desc="Your brother")
     s.add(c)
 
-    p = Patient(name = "Bunica lu' trupples", img = "https://cdn.discordapp.com/attachments/633037289743712286/640246191791144980/unknown.png")
+    p = Patient(name = "Tanti Gianina", img = "https://cdn.discordapp.com/attachments/633037289743712286/640246191791144980/unknown.png")
     s.add(p)
-    
-    t = Todo(desc = "Water my pussy at 6", done = False, patient_id = 1, caretaker_id = 1)
+
+    t = Todo(desc = "Water the flowers", done = False, patient_id = 1, caretaker_id = 1)
     s.add(t)
 
-    t = Todo(desc = "Water my pussy at 6, but again", done = False, patient_id = 1, caretaker_id = 2)
+    t = Todo(desc = "Go to the grocery store", done = False, patient_id = 1, caretaker_id = 2)
+    s.add(t)
+
+
+    t = Todo(desc = "Call me soon", done = False, patient_id = 1, caretaker_id = 3)
+    s.add(t)
+
+
+    t = Todo(desc = "Pay your electricity bills", done = False, patient_id = 1, caretaker_id = 4)
+    s.add(t)
+
+
+    t = Todo(desc = "<span style=\"color:red;\">Please take your medication</span>", done = False, patient_id = 1, caretaker_id = 5)
     s.add(t)
 
     s.commit()
