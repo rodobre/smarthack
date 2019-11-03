@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Forever Family</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <!-- Favicons -->
+  <link href="/static/home/img/favicon.ico" rel="icon">
+  <link href="/static/home/img/favicon.ico" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="/static/home/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="/static/home/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/static/home/lib/animate/animate.min.css" rel="stylesheet">
+  <link href="/static/home/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="/static/home/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="/static/home/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="/static/home/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+  <!--==========================
+  Header
+  ============================-->
+  <header id="header" class="fixed-top">
+        <div class="container">
+    
+          <div class="logo float-left">
+            <!-- Uncomment below if you prefer to use an image logo -->
+            <!-- <h1 class="text-light"><a href="#header"><span>NewBiz</span></a></h1> -->
+            <a href="/home/index" class="scrollto"><img src="/static/home/img/logo.png" alt="" class="img-fluid"></a>
+          </div>
+    
+          <nav class="main-nav float-right d-none d-lg-block">
+            <ul>
+              <li><a href="/home/index">Home</a></li>
+              <li class="active"><a href="/home/login">Login</a></li>
+            </ul>
+          </nav><!-- .main-nav -->
+          
+        </div>
+      </header><!-- #header -->
+
+
+    <main id="main">
+        <div style="height: 94px"></div>
+            <div class="container login-container">
+                    <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-6 login-form-1">
+                            <h3>Caretaker Login</h3>
+                            <form action="/api/login" id="loginForm">
+                                <div class="form-group">
+                                    <input id="nameInput" type="text" class="form-control" placeholder="Your Username *" value="" />
+                                </div>
+                                <div class="form-group">
+                                    <input id="passwordInput" type="password" class="form-control" placeholder="Your Password *" value="" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" class="btnSubmit" value="Login"/>
+                                </div>
+                                <p style="color: red; display:none;margin:0" id="errorP" >Incorrect username or password</p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+    </main>
+
+  <!--==========================
+    Footer
+  ============================-->
+  <footer id="footer">
+        <div class="footer-top">
+          <div class="container">
+            <div class="row">
+    
+              <div class="col-lg-4 col-md-4 footer-info">
+              </div>
+              <div class="col-lg-4 col-md-4 footer-info">
+                <h3>Family Forever</h3>
+                <center>Here to keep your family connected</center>
+              </div>
+              <div class="col-lg-4 col-md-4 footer-info">
+              </div>
+    
+            </div>
+          </div>
+        </div>
+    
+        <div class="container">
+          <div class="copyright">
+            &copy; Copyright <strong>Forever Family</strong> 2019. All Rights Reserved
+          </div>
+        </div>
+      </footer><!-- #footer -->
+    
+      <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+      <!-- Uncomment below i you want to use a preloader -->
+      <!-- <div id="preloader"></div> -->
+    
+      <!-- JavaScript Libraries -->
+      <script src="/static/home/lib/jquery/jquery.min.js"></script>
+      <script src="/static/home/lib/jquery/jquery-migrate.min.js"></script>
+      <script src="/static/home/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+      <script src="/static/home/lib/easing/easing.min.js"></script>
+      <script src="/static/home/lib/mobile-nav/mobile-nav.js"></script>
+      <script src="/static/home/lib/wow/wow.min.js"></script>
+      <script src="/static/home/lib/waypoints/waypoints.min.js"></script>
+      <script src="/static/home/lib/counterup/counterup.min.js"></script>
+      <script src="/static/home/lib/owlcarousel/owl.carousel.min.js"></script>
+      <script src="/static/home/lib/isotope/isotope.pkgd.min.js"></script>
+      <script src="/static/home/lib/lightbox/js/lightbox.min.js"></script>
+      <!-- Contact Form JavaScript File -->
+      <script src="/static/home/contactform/contactform.js"></script>
+    
+      <!-- Template Main Javascript File -->
+      <script src="/static/home/js/main.js"></script>
+</body>
+
+
+<style>
+.login-container{
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+.login-form-1{
+    padding: 5%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+}
+.login-form-1 h3{
+    text-align: center;
+    color: #333;
+}
+.login-form-2{
+    padding: 5%;
+    background: #0062cc;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+}
+.login-form-2 h3{
+    text-align: center;
+    color: #fff;
+}
+.login-container form{
+    padding: 10%;
+}
+.btnSubmit
+{
+    width: 50%;
+    border-radius: 1rem;
+    padding: 1.5%;
+    border: none;
+    cursor: pointer;
+}
+.login-form-1 .btnSubmit{
+    font-weight: 600;
+    color: #fff;
+    background-color: #0062cc;
+}
+.login-form-2 .btnSubmit{
+    font-weight: 600;
+    color: #0062cc;
+    background-color: #fff;
+}
+.login-form-2 .ForgetPwd{
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+}
+.login-form-1 .ForgetPwd{
+    color: #0062cc;
+    font-weight: 600;
+    text-decoration: none;
+}
+</style>
+
+<script>
+  $("#loginForm").submit(function(e){
+        e.preventDefault();
+        $.ajax ({
+        url: '/api/login',
+        type: "POST",
+        data: JSON.stringify({'type':'creds','name':document.getElementById('nameInput').value,'password':document.getElementById('passwordInput').value}),
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        success: function(data){
+          try {
+            localStorage['token'] = data.token;
+            document.location = "/";
+          }
+          catch (e)
+          {
+            $('#errorP')[0].style="color:red;margin:0";
+          }
+        },
+        error: function()
+        {
+          $('#errorP')[0].style="color:red;margin:0";
+        }
+        });
+    });
+</script>

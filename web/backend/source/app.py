@@ -32,7 +32,7 @@ def create_db():
 
     p = Patient(name = "Bunica lu' trupples", img = "https://cdn.discordapp.com/attachments/633037289743712286/640246191791144980/unknown.png")
     s.add(p)
-
+    
     t = Todo(desc = "Water my pussy at 6", done = False, patient_id = 1, caretaker_id = 1)
     s.add(t)
 
@@ -85,9 +85,27 @@ app.register_blueprint(back.backend)
 # --------- Routes go here ----------
 # -----------------------------------
 @app.route('/')
-@app.route('/index')
+@app.route('/home')
+@app.route('/home/')
+@app.route('/home/index')
 def index():
-	return render_template('index.html', title=consts.page_title)
+	return render_template('home/index.html', title='Forever Family')
+
+@app.route('/login')
+@app.route('/home/login')
+def login():
+    return render_template('home/login.html', title='Login - Forever Family')
+
+
+@app.route('/game/memory')
+@app.route('/game/memory/')
+def memory():
+    return render_template('game/memory/index.html', title='Memory - Forever Family')
+
+@app.route('/game/recognizefaces')
+@app.route('/game/recognizefaces/')
+def recognizefaces():
+    return render_template('game/recognizefaces/index.html', title='Recognize faces - Forever Family')
 # -----------------------------------
 
 # -----------------------------------
