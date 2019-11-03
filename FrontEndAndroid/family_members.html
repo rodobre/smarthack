@@ -32,24 +32,46 @@
 	<center><h1>Your family</h1></center>
 	<br><br>
   <center>
-  <div class="card shadow mb-4" style="margin-left: 20px; margin-right: 20px;">
-    <div class="card-body"><img height="100" width="100" class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt=""><br><br>
-      <h4>Your daughter, Jessica</h4>
-    </div>
-  </div>
-  <div class="card shadow mb-4" style="margin-left: 20px; margin-right: 20px;">
-    <div class="card-body"><img height="100" width="100" class="rounded-circle" src="./img/man2.jpg" alt=""><br><br>
-      <h4>Your son, Pablo</h4>
-    </div>
-  </div>
 
-  <div class="card shadow mb-4" style="margin-left: 20px; margin-right: 20px;">
-    <div class="card-body"><img height="100" width="100" class="rounded-circle" src="./img/woman2.jpeg" alt=""><br><br>
-      <h4>Your mother, Julia</h4>
+<div id="content">
+<template id="tasktemplate">
+  <div id="parinte" class="card shadow mb-4" style="margin-left: 20px; margin-right: 20px;">
+    <div class="card-body"><img id="imagine" height="100" width="100" class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt=""><br><br>
+      <h4 id="textu">Your daughter, Jessica</h4>
     </div>
   </div>
-  </center>
+</template>
+</div>
+</center>
 
+<script>
+var template = document.querySelector("#tasktemplate");
+var table = document.querySelector("#content");
+
+var token = "RP8G3KHX5H0G1XXNPSES816NGQMZ7OUKTMNA4PVVYPPEFP7TH912GCD3T0VJQLSP0E0KFRUHRP7YD267O5KGEAH57XTCRIPH7ZNXYFW6ZY3WYPD8HGTSSE0FTUZXQPKB";
+localStorage.setItem('token', token);
+    var req = new XMLHttpRequest();
+    req.open('GET', 'http://localhost:5000/api/view_members', true);
+    req.setRequestHeader('Token', localStorage.getItem('token'));
+    req.onreadystatechange = function() {
+        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+            var data = JSON.parse(this.responseText);
+
+            for (var i = 0; i < data.length; i++) {
+                var clone = document.importNode(template.content, true);
+                var img = clone.querySelector("#imagine");
+                var txt = clone.querySelector("#textu");
+                var parinte = clone.querySelector("#parinte");
+
+                img.setAttribute('src', data[i]['img']);
+                txt.innerHTML = data[i]["name"];
+
+                table.appendChild(clone);
+            }
+        }
+    }
+    req.send(null);
+</script>
   
   
   <!-- Bootstrap core JavaScript-->
