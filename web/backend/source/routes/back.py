@@ -189,14 +189,8 @@ def view_members():
     if not is_auth(request.headers):
        return 'not authenticated', 401
 
-    family_id = None
-
-    try:
-        family_id = data['family_id']
-    except:
-        return 'invalid parameters', 400
-
     s = Session()
+    family_id = Cache[request.headers['Token']]['family_id']
     r = s.query(Caretaker).filter_by(family_id=family_id).all()
     print(repr(r))
     persons = []
