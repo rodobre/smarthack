@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, render_template
 from db import Session, Cache
 from db.family import Family, Caretaker, Patient
 from db.todo import Todo
@@ -17,6 +17,10 @@ import random
 def random_key(N):
     return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(N))
 
+
+@backend.route('/dashboard')
+def dashboard():
+    return render_template('dashboard/index.html', title='Dasboard')
 
 # ############# CARETAKER ROUTES ################## #
 # GET_QR - POST
