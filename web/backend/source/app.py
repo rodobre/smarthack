@@ -106,11 +106,37 @@ def memory():
 @app.route('/game/recognizefaces/')
 def recognizefaces():
     return render_template('game/recognizefaces/index.html', title='Recognize faces - Forever Family')
+
+@app.route('/qr/index')
+@app.route('/qr/')
+@app.route('/qr')
+def qr():
+    return render_template('qr/index.html', title='QR - Forever Family')
+
+
+@app.route('/mobile/')
+@app.route('/mobile')
+@app.route('/mobile/index')
+def mobile_index():
+    return render_template('mobile/index.html', title='Index - Forever Family')
+
+@app.route('/mobile/games_list')
+def mobile_games_list():
+    return render_template('mobile/games_list.html', title='Index - Forever Family')
+
+@app.route('/mobile/todo')
+def mobile_todo():
+    return render_template('mobile/todo.html', title='Index - Forever Family')
+
+@app.route('/mobile/family_members')
+def mobile_family_members():
+    return render_template('mobile/family_members.html', title='Index - Forever Family')
 # -----------------------------------
 
 # -----------------------------------
 # -------- Flask entrypoint ---------
 # -----------------------------------
 if __name__ == '__main__':
-	app.run(ssl_context=('certificate.pem', 'key.pem'), host='0.0.0.0')
+	app.run(ssl_context=('certificate.pem', 'key.pem'),  host='0.0.0.0')
+    #app.run(host='0.0.0.0')
 # -----------------------------------

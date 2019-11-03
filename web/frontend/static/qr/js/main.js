@@ -1,13 +1,12 @@
-var overlay = new Overlay()
-
+var overlay = new Overlay();
 
 //////////////////////////////////////////////////////////////////////////////
 //		create canvasEl
 //////////////////////////////////////////////////////////////////////////////
-var canvasEl = document.createElement('canvas')
-canvasEl.id = 'qr-canvas'	// KLUDGE by jsqrcode.js - forced to have this domID
-canvasEl.style.display = 'none'
-document.body.appendChild(canvasEl)
+var canvasEl = document.createElement('canvas');
+canvasEl.id = 'qr-canvas'; // KLUDGE by jsqrcode.js - forced to have this domID
+canvasEl.style.display = 'none';
+document.body.appendChild(canvasEl);
 
 //////////////////////////////////////////////////////////////////////////////
 //		init video
@@ -18,69 +17,77 @@ var userMediaConstraints = {
 	video: {
 		facingMode: 'environment',
 		width: {
-			ideal: 640,
+			ideal: 640
 			// min: 1024,
 			// max: 1920
 		},
 		height: {
-			ideal: 480,
+			ideal: 480
 			// min: 776,
 			// max: 1080
 		}
-  	}
-}
-// Replace the source of the video element with the stream from the camera
-navigator.mediaDevices.getUserMedia(userMediaConstraints).then(function(stream) {
-
-	// TODO use videoEl.srcObject !== undefined to detect feature
-
-	// var ua = navigator.userAgent.toLowerCase();
-
-	if ( videoEl.srcObject === null ) {
-		videoEl.srcObject = stream;
-	} else {
-		console.asset( !window.URL, 'window.URL isnt define ')
-		var objUrl = window.URL.createObjectURL(stream);
 	}
-	videoEl.play();
-}).catch(function(error) {
-	console.log(error)
-});
+};
+// Replace the source of the video element with the stream from the camera
+navigator.mediaDevices
+	.getUserMedia(userMediaConstraints)
+	.then(function(stream) {
+		// TODO use videoEl.srcObject !== undefined to detect feature
+
+		// var ua = navigator.userAgent.toLowerCase();
+
+		if (videoEl.srcObject === null) {
+			videoEl.srcObject = stream;
+		} else {
+			console.asset(!window.URL, 'window.URL isnt define ');
+			var objUrl = window.URL.createObjectURL(stream);
+		}
+		videoEl.play();
+	})
+	.catch(function(error) {
+		console.log(error);
+	});
 
 //////////////////////////////////////////////////////////////////////////////
 //		init qrcode callback to received scanned result
 //////////////////////////////////////////////////////////////////////////////
-qrcode.callback = function read(qrCodeValue){
-	console.log('read value', qrCodeValue)
+qrcode.callback = function read(qrCodeValue) {
+	console.log('read value', qrCodeValue);
 
-    var data = qrCodeValue.split('#');
-    fetch('/api/login', {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            family_id: data[0],
-            patient_id: data[1],
-        })
-    }).then(function (resp) {
-        return resp.json();
-    }).then(function (data) {
-        localStorage.setItem('token', data['token']);
-    });
+	var data = qrCodeValue.split('#');
+	console.log(data);
+	fetch('https://wtl.pw:5000/api/login', {
+		method: 'POST',
+		headers: {
+			Accept: 'application/json',
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({
+			type: 'qr',
+			family_id: data[0],
+			patient_id: data[1]
+		})
+	})
+		.then(function(resp) {
+			return resp.json();
+		})
+		.then(function(data) {
+			console.log(data);
+			localStorage.setItem('token', data['token']);
+			window.location = 'https://wtl.pw:5000/mobile/index';
+		});
 };
 
 /**
  * to scan the video now
  */
-function scanVideoNow(){
+function scanVideoNow() {
 	// dont scan if videoEl isnt yet initialized
-	if( videoEl.videoWidth === 0 )	return
+	if (videoEl.videoWidth === 0) return;
 
-	var scale = 0.5
+	var scale = 0.5;
 	// console.time('capture');
-	var canvasEl = document.querySelector('#qr-canvas')
+	var canvasEl = document.querySelector('#qr-canvas');
 	var context = canvasEl.getContext('2d');
 	// resize canvasEl
 	canvasEl.width = videoEl.videoWidth * scale;
@@ -90,18 +97,18 @@ function scanVideoNow(){
 	// decode the canvas content
 	try {
 		qrcode.decode();
-		var foundResult = true
-	} catch(error) {
+		var foundResult = true;
+	} catch (error) {
 		// console.log('jsqrcode:', error);
-		var foundResult = false
+		var foundResult = false;
 	}
-	return foundResult
+	return foundResult;
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //		start scanning
 //////////////////////////////////////////////////////////////////////////////
-scanVideoNow()
+scanVideoNow();
 setInterval(function() {
-	scanVideoNow()
+	scanVideoNow();
 }, 100);

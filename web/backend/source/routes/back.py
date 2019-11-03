@@ -20,7 +20,7 @@ def random_key(N):
 
 @backend.route('/dashboard')
 def dashboard():
-    return render_template('dashboard/index.html', title='Dasboard')
+    return render_template('dashboard/index.html', title='Dashboard')
 
 # ############# CARETAKER ROUTES ################## #
 # GET_QR - POST
