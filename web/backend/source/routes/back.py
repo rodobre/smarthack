@@ -201,7 +201,7 @@ def view_members():
     persons = []
     for p in r:
         print(p)
-        persons += [{'name':p.name,'img':p.img}]
+        persons += [{'name':p.name,'img':p.img,'desc':p.desc}]
     print(persons)
     return str(json.dumps(persons))
 
