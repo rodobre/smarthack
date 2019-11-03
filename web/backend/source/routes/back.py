@@ -150,14 +150,13 @@ def send_stats():
 
     try:
         time = data['time']
-        moves = data['moves']
         answers_right = data['answers_right']
         answers_wrong = data['answers_wrong']
         patient_id = Cache[request.headers['Token']]['id']
     except:
         return 'invalid parameters', 400
 
-    t = Stats(moves=moves,time=time,answers_wrong=answers_wrong,answers_right=answers_right,patient_id=patient_id)
+    t = Stats(time=time,answers_wrong=answers_wrong,answers_right=answers_right,patient_id=patient_id)
     s = Session()
     s.add(t)
     s.commit()
