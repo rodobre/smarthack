@@ -4,3 +4,4 @@ sqlalchemy
 redislite
 qrcode
 flask_cors
+pyopenssl
