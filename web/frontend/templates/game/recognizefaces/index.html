@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Recognize Faces</title>
+              <!-- Favicons -->
+        <link href="/static/home/img/favicon.ico" rel="icon">
+        <link href="/static/home/img/favicon.ico" rel="apple-touch-icon">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+        <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
+        <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah|Permanent+Marker" >
+        <link rel="stylesheet" href="/static/game/recognizefaces/css/app.css">
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700" rel="stylesheet">
+          <!-- Bootstrap CSS File -->
+        <link href="/static/game/recognizefaces/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Libraries CSS Files -->
+        <link href="/static/game/recognizefaces/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <link href="/static/game/recognizefaces/lib/animate/animate.min.css" rel="stylesheet">
+        <link href="/static/game/recognizefaces/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+        <link href="/static/game/recognizefaces/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+        <link href="/static/game/recognizefaces/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <div class="container">
+            <main id="main">
+                        <div style="height: 50px"></div>
+                        <center><h3>Recognize faces</h3><br>Elapsed time:<div class="timer">0 mins 0 seconds
+                            </div><br>
+                        <span id="goodans" style="color:green">0 Answers right</span><span style="margin-right: 20px"></span><span id="badans" style="color:red">0 Answers wrong</span></center>
+                            <div class="container login-container">
+                                    <div class="row">
+                                        <div class="col-md-2"></div>
+                                        <div class="col-md-8 login-form-1">
+                                        <div class="form-group">
+                                            <center>
+                                                <img id="challenge-img" style="background-color:grey;max-height: 200px" />
+                                                <br>
+                                                <a href="#" id="answer1" class="btn-get-started btn-game scrollto"></a><br>
+                                                <a href="#" id="answer2" class="btn-get-started btn-game scrollto"></a><br>
+                                                <a href="#" id="answer3" class="btn-get-started btn-game scrollto"></a>
+                                            </center>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                </main>
+            <div id="popup1" class="overlay" style="display:none">
+                    <div class="popup">
+                        <h2>Congratulations 🎉</h2>
+                        <a class="close" href=# >×</a>
+                        <div class="content-1">
+                            Congratulations you're a winner 🎉🎉
+                        </div>
+                        <div class="content-2">
+                            <p>You had <span id=finalMove> </span> correct answers </p>
+                            <p>in <span id=totalTime> </span> </p>
+                            <p>Rating:  <span id=starRating></span></p>
+                        </div>
+                        <button id="play-again" onclick="playAgain()">
+                            Play again 😄
+                        </button>
+                    </div>
+                </div>
+        </div>
+        <footer>
+            <center>
+            <br>
+            <a href="" class="btn-get-started scrollto">Exit game</a>
+            </center>
+        </footer>
+    </body>
+    <script src="/static/game/recognizefaces/js/app.js"></script>
+</html>
