@@ -193,10 +193,13 @@ def view_members():
     s = Session()
     family_id = Cache[request.headers['Token']]['family_id']
     r = s.query(Caretaker).filter_by(family_id=family_id).all()
+    print('Family id', family_id)
     print(repr(r))
     persons = []
     for p in r:
+        print(p)
         persons += [{'name':p.name,'img':p.img}]
+    print(persons)
     return str(json.dumps(persons))
 
 # VIEW_PATIENTS - GET

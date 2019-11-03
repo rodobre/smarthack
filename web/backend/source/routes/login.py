@@ -41,7 +41,7 @@ def login():
 
         key = random_key(128)
         Cache[key] = {
-            "family_id": u.family_id,
+            "family_id": data["family_id"],
             "type": 0,
             "id": u.id
         }
