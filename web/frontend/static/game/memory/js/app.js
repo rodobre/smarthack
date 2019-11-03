@@ -239,8 +239,7 @@ for (var i = 0; i < cards.length; i++) {
 	card.addEventListener('click', congratulations);
 }
 
-const SERVER_URL = 'jsonplaceholder.typicode.com/todos/1';
-//const STATS_URL = 'http://' +  SERVER_URL + '/api/send_stats';
+const SERVER_URL = document.location.host + '/api/send_stats';
 const STATS_URL = 'http://' + SERVER_URL;
 async function send_stats(t, m) {
 	try {
